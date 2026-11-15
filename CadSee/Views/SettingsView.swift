@@ -47,7 +47,8 @@ struct SettingsView: View {
 
 struct FormatSupportView: View {
     private let groups: [(String, String, [String])] = [
-        ("三维模型", "原生 SceneKit 渲染", ["STL", "OBJ", "PLY", "USDZ", "DAE", "SCN"]),
+        ("三维模型", "Web 渲染引擎（three.js）", ["STL", "OBJ", "PLY"]),
+        ("原生场景", "SceneKit 原生渲染", ["USDZ", "DAE", "SCN"]),
         ("CAD 模型", "OpenCASCADE WASM 引擎解析", ["STEP", "STP", "IGES", "IGS", "BREP", "glTF", "GLB", "3MF"]),
         ("平面图纸", "DXF / PDF / SVG", ["DXF", "PDF", "SVG"]),
         ("图片", "系统相册格式", ["PNG", "JPG", "HEIC", "WEBP", "GIF", "TIFF", "BMP"])
