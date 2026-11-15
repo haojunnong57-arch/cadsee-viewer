@@ -1,0 +1,20 @@
+# Xcode / Swift
+DerivedData/
+build/
+*.xcuserstate
+xcuserdata/
+CadSee.xcodeproj/
+CadSee/Info.plist
+.DS_Store
+
+# 脚本产物
+scripts/fixtures/*.step
+scripts/fixtures/*.igs
+scripts/fixtures/*.brep
+
+# 工具
+tools/
+
+# IPA 产物
+*.ipa
+Payload/
