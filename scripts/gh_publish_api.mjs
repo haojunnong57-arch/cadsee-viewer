@@ -77,17 +77,24 @@ const relFiles = files.map(f => relative(root, f).replace(/\\/g, '/')).sort();
 console.log(`待上传 ${relFiles.length} 个文件`);
 for (const f of relFiles) console.log('  ', f, f.endsWith('.wasm') ? '(wasm)' : '');
 
-// 4. 逐个上传（串行，避免并发冲突）
+// 4. 逐个上传（串行，避免并发冲突；已存在的文件带 sha 更新）
 let uploaded = 0;
 for (const relPath of relFiles) {
   const full = join(root, relPath);
   const content = readFileSync(full).toString('base64');
-  await api('PUT', `/repos/${login}/${repoName}/contents/${encodeURI(relPath)}`, {
-    message: `add ${relPath}`,
-    content
+  const pathEsc = encodeURI(relPath);
+  let sha = null;
+  try {
+    const existing = await api('GET', `/repos/${login}/${repoName}/contents/${pathEsc}`);
+    sha = existing.sha;
+  } catch { /* 新文件 */ }
+  await api('PUT', `/repos/${login}/${repoName}/contents/${pathEsc}`, {
+    message: sha ? `update ${relPath}` : `add ${relPath}`,
+    content,
+    ...(sha ? { sha } : {})
   });
   uploaded++;
-  console.log(`[${uploaded}/${relFiles.length}] ${relPath}`);
+  console.log(`[${uploaded}/${relFiles.length}] ${relPath}${sha ? ' (updated)' : ''}`);
   await sleep(150);
 }
 
