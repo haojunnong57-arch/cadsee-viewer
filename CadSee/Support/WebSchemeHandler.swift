@@ -31,12 +31,19 @@ final class WebSchemeHandler: NSObject, WKURLSchemeHandler {
             return
         }
         let mime = Self.mimeType(for: fileURL.pathExtension)
-        let response = URLResponse(
+        let charset = (mime.hasPrefix("text") || mime == "application/json") ? "; charset=utf-8" : ""
+        // 关键：必须返回 HTTPURLResponse（statusCode=200），JS 的 fetch() 才能拿到
+        // 正确的 resp.status / resp.ok；否则会得到 status=0，报“读取文件失败 (0)”。
+        let response = HTTPURLResponse(
             url: url,
-            mimeType: mime,
-            expectedContentLength: data.count,
-            textEncodingName: (mime.hasPrefix("text") || mime == "application/json") ? "utf-8" : nil
-        )
+            statusCode: 200,
+            httpVersion: "HTTP/1.1",
+            headerFields: [
+                "Content-Type": mime + charset,
+                "Content-Length": "\(data.count)",
+                "Access-Control-Allow-Origin": "*"
+            ]
+        )!
         urlSchemeTask.didReceive(response)
         urlSchemeTask.didReceive(data)
         urlSchemeTask.didFinish()
