@@ -132,18 +132,13 @@ final class SceneLoader: ObservableObject {
     @Published private(set) var state: LoadState = .idle
     @Published private(set) var scene: SCNScene?
 
-    private enum LoadError: Error {
-        case unsupported
-    }
-
     func load(url: URL) async {
         guard state == .idle else { return }
         state = .loading
         do {
             let loaded: SCNScene = try await Task.detached(priority: .userInitiated) {
-                guard let scene = SCNScene(url: url, options: nil) else {
-                    throw LoadError.unsupported
-                }
+                // iOS 26 SDK：SCNScene(url:options:) 为抛出式初始化器
+                let scene = try SCNScene(url: url, options: nil)
                 return scene
             }.value
             scene = loaded
