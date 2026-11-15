@@ -1,0 +1,200 @@
+name: CadSee
+options:
+  bundleIdPrefix: com.cadsee
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    IPHONEOS_DEPLOYMENT_TARGET: "17.0"
+    TARGETED_DEVICE_FAMILY: "1,2"
+targets:
+  CadSee:
+    type: application
+    platform: iOS
+    sources:
+      - path: CadSee
+        excludes:
+          - Resources/WebAssets
+      - path: CadSee/Resources/WebAssets
+        type: folder
+    info:
+      path: CadSee/Info.plist
+      properties:
+        CFBundleDisplayName: CAD看图
+        CFBundleShortVersionString: "1.0.0"
+        CFBundleVersion: "1"
+        CFBundleDevelopmentRegion: zh-Hans
+        LSRequiresIPhoneOS: true
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UIFileSharingEnabled: true
+        LSSupportsOpeningDocumentsInPlace: true
+        ITSAppUsesNonExemptEncryption: false
+        CFBundleDocumentTypes:
+          - CFBundleTypeName: STEP CAD 模型
+            CFBundleTypeRole: Viewer
+            LSHandlerRank: Alternate
+            LSItemContentTypes:
+              - com.cadsee.step
+          - CFBundleTypeName: IGES CAD 模型
+            CFBundleTypeRole: Viewer
+            LSHandlerRank: Alternate
+            LSItemContentTypes:
+              - com.cadsee.iges
+          - CFBundleTypeName: BREP 模型
+            CFBundleTypeRole: Viewer
+            LSHandlerRank: Alternate
+            LSItemContentTypes:
+              - com.cadsee.brep
+          - CFBundleTypeName: glTF 模型
+            CFBundleTypeRole: Viewer
+            LSHandlerRank: Alternate
+            LSItemContentTypes:
+              - com.cadsee.gltf
+              - com.cadsee.glb
+          - CFBundleTypeName: 3MF 模型
+            CFBundleTypeRole: Viewer
+            LSHandlerRank: Alternate
+            LSItemContentTypes:
+              - com.cadsee.threemf
+          - CFBundleTypeName: STL 模型
+            CFBundleTypeRole: Viewer
+            LSHandlerRank: Alternate
+            LSItemContentTypes:
+              - com.cadsee.stl
+          - CFBundleTypeName: OBJ 模型
+            CFBundleTypeRole: Viewer
+            LSHandlerRank: Alternate
+            LSItemContentTypes:
+              - com.cadsee.obj
+          - CFBundleTypeName: PLY 点云/网格
+            CFBundleTypeRole: Viewer
+            LSHandlerRank: Alternate
+            LSItemContentTypes:
+              - com.cadsee.ply
+          - CFBundleTypeName: USDZ 模型
+            CFBundleTypeRole: Viewer
+            LSHandlerRank: Alternate
+            LSItemContentTypes:
+              - com.pixar.universal-scene-description-mobile
+          - CFBundleTypeName: Collada 模型
+            CFBundleTypeRole: Viewer
+            LSHandlerRank: Alternate
+            LSItemContentTypes:
+              - org.khronos.collada.digital-asset-exchange
+          - CFBundleTypeName: DXF 图纸
+            CFBundleTypeRole: Viewer
+            LSHandlerRank: Alternate
+            LSItemContentTypes:
+              - com.autodesk.dxf
+          - CFBundleTypeName: PDF 文档
+            CFBundleTypeRole: Viewer
+            LSHandlerRank: Alternate
+            LSItemContentTypes:
+              - com.adobe.pdf
+          - CFBundleTypeName: SVG 图形
+            CFBundleTypeRole: Viewer
+            LSHandlerRank: Alternate
+            LSItemContentTypes:
+              - public.svg-image
+          - CFBundleTypeName: 图片
+            CFBundleTypeRole: Viewer
+            LSHandlerRank: Alternate
+            LSItemContentTypes:
+              - public.image
+        UTImportedTypeDeclarations:
+          - UTTypeIdentifier: com.cadsee.step
+            UTTypeDescription: STEP 文件
+            UTTypeConformsTo:
+              - public.data
+            UTTypeTagSpecification:
+              public.filename-extension:
+                - step
+                - stp
+          - UTTypeIdentifier: com.cadsee.iges
+            UTTypeDescription: IGES 文件
+            UTTypeConformsTo:
+              - public.data
+            UTTypeTagSpecification:
+              public.filename-extension:
+                - iges
+                - igs
+          - UTTypeIdentifier: com.cadsee.brep
+            UTTypeDescription: BREP 文件
+            UTTypeConformsTo:
+              - public.data
+            UTTypeTagSpecification:
+              public.filename-extension:
+                - brep
+          - UTTypeIdentifier: com.cadsee.gltf
+            UTTypeDescription: glTF 模型
+            UTTypeConformsTo:
+              - public.data
+            UTTypeTagSpecification:
+              public.filename-extension:
+                - gltf
+          - UTTypeIdentifier: com.cadsee.glb
+            UTTypeDescription: glTF 二进制模型
+            UTTypeConformsTo:
+              - public.data
+            UTTypeTagSpecification:
+              public.filename-extension:
+                - glb
+          - UTTypeIdentifier: com.cadsee.threemf
+            UTTypeDescription: 3MF 模型
+            UTTypeConformsTo:
+              - public.data
+            UTTypeTagSpecification:
+              public.filename-extension:
+                - 3mf
+          - UTTypeIdentifier: com.cadsee.stl
+            UTTypeDescription: STL 模型
+            UTTypeConformsTo:
+              - public.data
+            UTTypeTagSpecification:
+              public.filename-extension:
+                - stl
+          - UTTypeIdentifier: com.cadsee.obj
+            UTTypeDescription: Wavefront OBJ 模型
+            UTTypeConformsTo:
+              - public.data
+            UTTypeTagSpecification:
+              public.filename-extension:
+                - obj
+          - UTTypeIdentifier: com.cadsee.ply
+            UTTypeDescription: PLY 模型
+            UTTypeConformsTo:
+              - public.data
+            UTTypeTagSpecification:
+              public.filename-extension:
+                - ply
+          - UTTypeIdentifier: com.autodesk.dxf
+            UTTypeDescription: DXF 图纸
+            UTTypeConformsTo:
+              - public.data
+            UTTypeTagSpecification:
+              public.filename-extension:
+                - dxf
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.cadsee.viewer
+        MARKETING_VERSION: "1.0.0"
+        CURRENT_PROJECT_VERSION: "1"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        CODE_SIGN_STYLE: Automatic
+        SWIFT_STRICT_CONCURRENCY: minimal
+schemes:
+  CadSee:
+    build:
+      targets:
+        CadSee: all
+    run:
+      config: Debug
+    archive:
+      config: Release
