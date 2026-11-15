@@ -12,6 +12,7 @@ enum ViewerKind {
 }
 
 enum FileKind: Hashable {
+    case nativeScene
     case mesh3D
     case cad
     case dxf
@@ -22,7 +23,9 @@ enum FileKind: Hashable {
 
     init(ext: String) {
         switch ext.lowercased() {
-        case "stl", "obj", "ply", "usdz", "dae", "scn":
+        case "dae", "scn", "usdz":
+            self = .nativeScene
+        case "stl", "obj", "ply":
             self = .mesh3D
         case "step", "stp", "iges", "igs", "brep", "gltf", "glb", "3mf":
             self = .cad
@@ -56,6 +59,7 @@ enum FileKind: Hashable {
 
     var displayName: String {
         switch self {
+        case .nativeScene: return "三维模型"
         case .mesh3D: return "三维模型"
         case .cad: return "CAD 模型"
         case .dxf: return "DXF 图纸"
@@ -68,6 +72,7 @@ enum FileKind: Hashable {
 
     var symbol: String {
         switch self {
+        case .nativeScene: return "cube.transparent"
         case .mesh3D: return "cube.transparent"
         case .cad: return "rotate.3d"
         case .dxf: return "pencil.and.ruler"
@@ -80,6 +85,7 @@ enum FileKind: Hashable {
 
     var tint: Color {
         switch self {
+        case .nativeScene: return .blue
         case .mesh3D: return .blue
         case .cad: return .indigo
         case .dxf: return .orange
@@ -92,7 +98,8 @@ enum FileKind: Hashable {
 
     var viewerKind: ViewerKind? {
         switch self {
-        case .mesh3D: return .scenekit
+        case .nativeScene: return .scenekit
+        case .mesh3D: return .web3D
         case .cad: return .web3D
         case .dxf: return .webDXF
         case .pdf: return .pdf
