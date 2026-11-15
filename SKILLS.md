@@ -15,7 +15,7 @@
 | three-dxf | github.com/gdsestimating/three-dxf | DXF 二维图纸图层渲染（依赖 dxf-parser） | MIT |
 | dxf-parser | github.com/gdsestimating/dxf-parser | DXF 文本解析 | MIT |
 | fflate | github.com/101arrowz/fflate | 3MF 压缩包解压（3MFLoader 依赖） | MIT |
-| SceneKit + ModelIO | Apple 系统框架 | 原生高性能 STL/OBJ/PLY/USDZ 渲染 | 系统内置 |
+| SceneKit | Apple 系统框架 | 原生渲染 USDZ/DAE/SCN 场景 | 系统内置 |
 | PDFKit / WebKit / UIKit | Apple 系统框架 | PDF、SVG、图片查看 | 系统内置 |
 
 ## 参考的成熟项目
