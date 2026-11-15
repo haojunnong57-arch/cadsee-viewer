@@ -11,9 +11,9 @@ CAD 引擎，把 CAD 能力完整搬到手机上。
 ## 功能
 
 - **3D / CAD 查看**
-  - 原生 SceneKit：STL、OBJ、PLY、USDZ、DAE、SCN
+  - three.js Web 渲染：STL、OBJ、PLY、glTF / GLB、3MF
   - OCCT-WASM 引擎（CAD 精度解析）：**STEP / STP、IGES / IGS、BREP**
-  - three.js：glTF / GLB、3MF
+  - 原生 SceneKit：USDZ、DAE、SCN
   - 实体 / 线框切换、深色 / 浅色背景、等轴测 / 正面 / 俯视、透视 / 正交、自动取景、网格参考面
 - **平面文件**：DXF 图纸（图层渲染）、PDF、SVG、常见图片（PNG/JPG/HEIC/WEBP/GIF/TIFF/BMP，双指缩放）
 - **文件管理**：从「文件」App 导入、多选导入、搜索、重命名、删除、共享、最近打开、格式分组
@@ -24,9 +24,9 @@ CAD 引擎，把 CAD 能力完整搬到手机上。
 | 层 | 实现 |
 |---|---|
 | UI | SwiftUI（iOS 17+，NavigationStack + 分层导航） |
-| 原生 3D | SceneKit + ModelIO（STL/OBJ/PLY/USDZ） |
+| 原生 3D | SceneKit（USDZ / DAE / SCN） |
 | CAD 引擎 | occt-import-js（OCCT → WASM，STEP/IGES/BREP） |
-| Web 渲染 | three.js r128（离线下发，WKWebView + 自定义 URL Scheme，无网络请求） |
+| Web 渲染 | three.js r128（STL/OBJ/PLY/glTF/3MF，离线下发，WKWebView + 自定义 URL Scheme，无网络请求） |
 | DXF | three-dxf（图层/线型渲染） |
 | 2D | PDFKit / WebKit / UIKit |
 
