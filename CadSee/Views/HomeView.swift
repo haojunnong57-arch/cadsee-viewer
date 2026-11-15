@@ -1,5 +1,4 @@
 import SwiftUI
-import UniformTypeIdentifiers
 
 struct HomeView: View {
     @EnvironmentObject private var store: LibraryStore
@@ -52,16 +51,12 @@ struct HomeView: View {
                 }
             }
         }
-        .fileImporter(
-            isPresented: $showImporter,
-            allowedContentTypes: FileKind.importTypes,
-            allowsMultipleSelection: true
-        ) { result in
-            switch result {
-            case .success(let urls):
+        .sheet(isPresented: $showImporter) {
+            DocumentPicker { urls in
+                showImporter = false
                 Task { await store.importFiles(from: urls) }
-            case .failure(let error):
-                store.pendingAlert = "无法导入：\(error.localizedDescription)"
+            } onCancel: {
+                showImporter = false
             }
         }
         .navigationDestination(for: FileRecord.self) { record in

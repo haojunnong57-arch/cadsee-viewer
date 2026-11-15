@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build-ipa:
@@ -43,6 +43,15 @@ jobs:
           cp -R DerivedData/Build/Products/Release-iphoneos/CadSee.app Payload/
           zip -qry CadSee-unsigned.ipa Payload
           ls -lh CadSee-unsigned.ipa
+
+      - name: Publish IPA to release
+        run: |
+          gh release delete build --yes || true
+          gh release create build CadSee-unsigned.ipa \
+            --title "CadSee IPA" \
+            --notes "CadSee 未签名 IPA（自动构建）"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload IPA artifact
         uses: actions/upload-artifact@v4
