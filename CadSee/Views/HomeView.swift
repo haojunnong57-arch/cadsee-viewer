@@ -85,10 +85,12 @@ struct HomeView: View {
                     }
                 }
             }
-            Section("全部文件") {
+            Section {
                 ForEach(filtered) { record in
                     row(for: record)
                 }
+            } header: {
+                Text("全部文件")
             } footer: {
                 Text("共 \(filtered.count) 个文件")
             }
