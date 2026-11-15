@@ -1,6 +1,5 @@
 import SwiftUI
 import SceneKit
-import ModelIO
 
 /// 发送给 SceneKit 容器的操作命令
 enum SceneKitCommand {
@@ -123,7 +122,7 @@ struct SceneKitViewer: View {
     }
 }
 
-/// 负责后台解析模型（ModelIO），主线程组装 SCNScene
+/// 负责后台解析场景（USDZ/DAE/SCN），主线程组装 SCNScene
 @MainActor
 final class SceneLoader: ObservableObject {
     enum LoadState {
@@ -140,20 +139,12 @@ final class SceneLoader: ObservableObject {
     func load(url: URL) async {
         guard state == .idle else { return }
         state = .loading
-        let ext = url.pathExtension.lowercased()
-        let isNative = ext == "dae" || ext == "scn"
         do {
             let loaded: SCNScene = try await Task.detached(priority: .userInitiated) {
-                if isNative {
-                    guard let scene = try? SCNScene(url: url, options: nil) else {
-                        throw LoadError.unsupported
-                    }
-                    return scene
+                guard let scene = SCNScene(url: url, options: nil) else {
+                    throw LoadError.unsupported
                 }
-                let asset = MDLAsset(url: url)
-                asset.loadTextures()
-                guard asset.count > 0 else { throw LoadError.unsupported }
-                return SCNScene(mdlAsset: asset)
+                return scene
             }.value
             scene = loaded
             state = .loaded
